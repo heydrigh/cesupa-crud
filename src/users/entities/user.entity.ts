@@ -40,6 +40,7 @@ export class User {
   email: string;
 
   @Column({ type: 'varchar' })
+  @Exclude()
   @ApiProperty()
   password: string;
 
