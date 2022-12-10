@@ -32,29 +32,21 @@ class ConfigService {
   }
 
   public getTypeOrmConfig(rootDir: string): TypeOrmModuleOptions {
-    const mode = this.getValue('NODE_ENV');
-
     return {
       type: 'postgres',
-      logging:
-        this.isTest() || this.isProduction() ? false : ['query', 'error'],
       host: this.getValue('POSTGRES_HOST'),
       port: parseInt(this.getValue('POSTGRES_PORT'), 10),
       username: this.getValue('POSTGRES_USER'),
       password: this.getValue('POSTGRES_PASSWORD'),
       database: this.getValue('POSTGRES_DATABASE'),
       schema: this.getValue('POSTGRES_SCHEMA'),
-      entities: [join(rootDir, '**/*.entity{.ts,.js}')],
       migrationsTableName: 'migrations',
-      migrations: [join(rootDir, '**/dist/**/migrations/*{.ts,.js}')],
-      subscribers: ['dist/**/*.subscriber.js'],
-      synchronize: false,
-      ssl:
-        mode === 'production'
-          ? {
-              rejectUnauthorized: false,
-            }
-          : false,
+      autoLoadEntities: true,
+      migrations: [
+        join(rootDir, 'migration/*{.ts,.js}'),
+        join(rootDir, 'src/migration/*{.ts,.js}'),
+      ],
+      synchronize: true,
     };
   }
 }
