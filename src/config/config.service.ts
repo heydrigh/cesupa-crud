@@ -1,5 +1,6 @@
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { join } from 'path';
+import { Post } from 'src/posts/entities/post.entity';
 
 class ConfigService {
   constructor(private env: { [k: string]: string | undefined }) {}
@@ -42,6 +43,7 @@ class ConfigService {
       schema: this.getValue('POSTGRES_SCHEMA'),
       migrationsTableName: 'migrations',
       autoLoadEntities: true,
+      entities: [Post],
       migrations: [
         join(rootDir, 'migration/*{.ts,.js}'),
         join(rootDir, 'src/migration/*{.ts,.js}'),
