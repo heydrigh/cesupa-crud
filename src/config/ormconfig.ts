@@ -1,11 +1,11 @@
 import * as dotenv from 'dotenv';
 import { cwd } from 'process';
 import { DataSource, DataSourceOptions } from 'typeorm';
-import { configService } from './config.service';
+import { configurationService } from './config.service';
 
 dotenv.config();
 
-const typeOrmConfig = configService.getTypeOrmConfig(
+const typeOrmConfig = configurationService.getTypeOrmConfig(
   cwd(),
 ) as DataSourceOptions;
 

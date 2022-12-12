@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { User } from 'src/users/entities/user.entity';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
 
@@ -8,7 +9,8 @@ export class PostsService {
     return 'This action adds a new post';
   }
 
-  findAll() {
+  findAll(user: User) {
+    console.log(user);
     return `This action returns all posts`;
   }
 

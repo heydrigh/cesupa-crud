@@ -2,7 +2,7 @@ import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { join } from 'path';
 import { Post } from 'src/posts/entities/post.entity';
 
-class ConfigService {
+export class ConfigurationService {
   constructor(private env: { [k: string]: string | undefined }) {}
 
   public getValue(key: string, defaultValue?: string): string {
@@ -53,6 +53,6 @@ class ConfigService {
   }
 }
 
-const configService = new ConfigService(process.env);
+const configurationService = new ConfigurationService(process.env);
 
-export { configService };
+export { configurationService };

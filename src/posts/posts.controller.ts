@@ -1,9 +1,25 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  UseGuards,
+} from '@nestjs/common';
 import { PostsService } from './posts.service';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { AuthGuard } from 'src/auth/auth.guard';
+import { CurrentUser } from 'src/decorators/current-user.decorator';
+import { User } from 'src/users/entities/user.entity';
 
+@ApiTags('posts')
 @Controller('posts')
+@ApiBearerAuth()
+@UseGuards(AuthGuard)
 export class PostsController {
   constructor(private readonly postsService: PostsService) {}
 
@@ -13,8 +29,8 @@ export class PostsController {
   }
 
   @Get()
-  findAll() {
-    return this.postsService.findAll();
+  findAll(@CurrentUser() user: User) {
+    return this.postsService.findAll(user);
   }
 
   @Get(':id')

@@ -30,5 +30,6 @@ export class UserDto {
     this.firstName = entity.firstName;
     this.lastName = entity.lastName;
     this.email = entity.email;
+    this.password = entity.password;
   }
 }
