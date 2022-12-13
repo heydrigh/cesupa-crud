@@ -1,12 +1,10 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Exclude } from 'class-transformer';
-import { Post } from 'src/posts/entities/post.entity';
 import {
   Column,
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
-  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -45,10 +43,6 @@ export class User {
   @Exclude()
   @ApiProperty()
   password: string;
-
-  @OneToMany(() => Post, (post) => post.user)
-  @ApiProperty({ type: Post })
-  post!: Post;
 
   constructor(partial: Partial<User>) {
     Object.assign(this, partial);
